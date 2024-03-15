@@ -1,31 +1,34 @@
-import {useState} from "react";
-import {useEffect} from "react";
-import styles from './EditEntityModal.module.scss'
+import  { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import styles from './EditEntityModal.module.scss';
+import {setIsEditing} from "../../api/slices/editModalSlice.js";
 
-function EditEntityModal({entity, onUpdateEntity, onClose}) {
-    const [name, setName] = useState(entity.name)
-    const [coordinate, setCoordinate] = useState(entity.coordinate)
-    const [labels, setLabels] = useState(entity.labels)
+function EditEntityModal({ entity, onUpdateEntity, onClose }) {
+    const [name, setName] = useState(entity.name);
+    const [coordinate, setCoordinate] = useState(entity.coordinate);
+    const [labels, setLabels] = useState(entity.labels);
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        onUpdateEntity({...entity, name, coordinate, labels})
-    }
+        e.preventDefault();
+        onUpdateEntity({ ...entity, name, coordinate, labels });
+        onClose();
+    };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "Escape") {
+            if (e.key === 'Escape') {
                 onClose();
             }
-        }
+        };
 
-        document.addEventListener("keydown", handleKeyDown)
+        document.addEventListener('keydown', handleKeyDown);
 
         return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [onClose])
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [onClose]);
 
     return (
         <div className={styles.modalBackdrop}>
@@ -57,8 +60,12 @@ function EditEntityModal({entity, onUpdateEntity, onClose}) {
                     />
 
                     <div className={styles.buttons}>
-                        <button className={styles.saveBtn} type="submit">Save</button>
-                        <button className={styles.cancelBtn} type="button" onClick={onClose}>Cancel</button>
+                        <button className={styles.saveBtn} type="submit">
+                            Save
+                        </button>
+                        <button className={styles.cancelBtn} type="button" onClick={() => dispatch(setIsEditing(false))}>
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
@@ -66,4 +73,4 @@ function EditEntityModal({entity, onUpdateEntity, onClose}) {
     );
 }
 
-export default EditEntityModal
+export default EditEntityModal;

@@ -1,36 +1,32 @@
-import {useState} from 'react';
-import {useEffect} from "react";
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Plot from 'react-plotly.js';
 import {useGetCoordinatesQuery} from '../../api/apiQueries.js';
-import styles from './HistogramModal.module.scss'
+import styles from './HistogramModal.module.scss';
+import {setIsModalOpen} from "../../api/slices/modalSlice.js";
 
 const HistogramModal = () => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    const modalIsOpen = useSelector(state => state.modal.isOpen);
     const {data: coordinatesData, error, isLoading, refetch} = useGetCoordinatesQuery();
-    const [data, setData] = useState([])
-
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         if (coordinatesData && coordinatesData.coordinates) {
-            const violinData = coordinatesData.coordinates.map(coord => ({
+            const violinData = coordinatesData.coordinates.map((coord, index) => ({
                 y: coord,
                 type: 'violin',
-                name: 'Entity ' + (coordinatesData.coordinates.indexOf(coord) + 1),
+                name: `Entity ${index + 1}`,
                 box: {visible: true},
                 meanline: {visible: true},
             }));
             setData(violinData);
-            refetch()
+            refetch();
         }
     }, [coordinatesData, refetch]);
 
-
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
     const closeModal = () => {
-        setModalIsOpen(false);
+        dispatch(setIsModalOpen(false));
     };
 
     useEffect(() => {
@@ -39,7 +35,6 @@ const HistogramModal = () => {
                 closeModal()
             }
         }
-
         document.addEventListener("keydown", handleKeyDown)
 
         return () => {
@@ -49,7 +44,7 @@ const HistogramModal = () => {
 
     return (
         <div>
-            <button className={styles.visualBtn} onClick={openModal}>Visualize</button>
+            <button className={styles.visualBtn} onClick={() => dispatch(setIsModalOpen(true))}>Visualize</button>
             {modalIsOpen && (
                 <div className={styles.modalOverlay}>
                     <div className={styles.modal}>
