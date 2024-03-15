@@ -1,0 +1,16 @@
+@mixin button-style {
+  width: 4rem;
+  height: 1.7rem;
+  background-color: var(--primary-button-color);
+  border: none;
+  border-radius: 0.3rem;
+  color: #f3f3f3;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  font-family: Inter, sans-serif;
+
+  &:hover {
+    background-color: var(--primary-hover-color);
+  }
+}

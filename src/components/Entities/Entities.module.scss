@@ -1,0 +1,37 @@
+@import "../../assets/mixins";
+
+.entityContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  place-items: center;
+}
+
+
+.cardContainer {
+  min-width: 15rem;
+  min-height: 7rem;
+  margin: 2rem;
+  padding: 1rem;
+  border-radius: 0.35rem;
+  background-color: #2f3d7e;
+  transition-duration: 0.3s;
+}
+
+.entityName {
+  margin-bottom: 0.5rem;
+}
+
+.coordinates {
+  margin-bottom: 0.3rem;
+}
+
+.deleteBtn {
+  margin-top: 1rem;
+  @include button-style;
+}
+
+.editBtn {
+  margin-top: 1rem;
+  @include button-style;
+  margin-right: 1.5rem;
+}
