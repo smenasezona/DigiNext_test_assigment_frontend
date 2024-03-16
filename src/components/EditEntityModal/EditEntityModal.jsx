@@ -1,17 +1,14 @@
-import  { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
+import {useEffect, useState} from 'react';
 import styles from './EditEntityModal.module.scss';
-import {setIsEditing} from "../../api/slices/editModalSlice.js";
-
-function EditEntityModal({ entity, onUpdateEntity, onClose }) {
+function EditEntityModal({entity, onUpdateEntity, onClose}) {
     const [name, setName] = useState(entity.name)
     const [coordinate, setCoordinate] = useState(entity.coordinate)
     const [labels, setLabels] = useState(entity.labels)
-    const dispatch = useDispatch()
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        onUpdateEntity({ ...entity, name, coordinate, labels })
+        onUpdateEntity({...entity, name, coordinate, labels})
         onClose();
     };
 
@@ -62,7 +59,8 @@ function EditEntityModal({ entity, onUpdateEntity, onClose }) {
                         <button className={styles.saveBtn} type="submit">
                             Save
                         </button>
-                        <button className={styles.cancelBtn} type="button" onClick={() => dispatch(setIsEditing(false))}>
+                        <button className={styles.cancelBtn}
+                                onClick={onClose}>
                             Cancel
                         </button>
                     </div>

@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import {useCallback} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import Plot from 'react-plotly.js'
 import {useGetCoordinatesQuery} from '../../api/apiQueries.js'
@@ -25,9 +26,9 @@ const HistogramModal = () => {
         }
     }, [coordinatesData, refetch])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         dispatch(setIsModalOpen(false))
-    };
+    }, [dispatch]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
