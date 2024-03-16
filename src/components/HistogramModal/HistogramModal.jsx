@@ -1,15 +1,15 @@
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import Plot from 'react-plotly.js';
-import {useGetCoordinatesQuery} from '../../api/apiQueries.js';
-import styles from './HistogramModal.module.scss';
-import {setIsModalOpen} from "../../api/slices/modalSlice.js";
+import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import Plot from 'react-plotly.js'
+import {useGetCoordinatesQuery} from '../../api/apiQueries.js'
+import styles from './HistogramModal.module.scss'
+import {setIsModalOpen} from "../../api/slices/modalSlice.js"
 
 const HistogramModal = () => {
-    const dispatch = useDispatch();
-    const modalIsOpen = useSelector(state => state.modal.isOpen);
-    const {data: coordinatesData, error, isLoading, refetch} = useGetCoordinatesQuery();
-    const [data, setData] = useState([]);
+    const dispatch = useDispatch()
+    const modalIsOpen = useSelector(state => state.modal.isOpen)
+    const {data: coordinatesData, error, isLoading, refetch} = useGetCoordinatesQuery()
+    const [data, setData] = useState([])
 
     useEffect(() => {
         if (coordinatesData && coordinatesData.coordinates) {
@@ -19,14 +19,14 @@ const HistogramModal = () => {
                 name: `Entity ${index + 1}`,
                 box: {visible: true},
                 meanline: {visible: true},
-            }));
-            setData(violinData);
-            refetch();
+            }))
+            setData(violinData)
+            refetch()
         }
-    }, [coordinatesData, refetch]);
+    }, [coordinatesData, refetch])
 
     const closeModal = () => {
-        dispatch(setIsModalOpen(false));
+        dispatch(setIsModalOpen(false))
     };
 
     useEffect(() => {
@@ -40,10 +40,10 @@ const HistogramModal = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [])
+    }, [closeModal])
 
     return (
-        <div>
+        <div className={styles.modalContainer}>
             <button className={styles.visualBtn} onClick={() => dispatch(setIsModalOpen(true))}>Visualize</button>
             {modalIsOpen && (
                 <div className={styles.modalOverlay}>
@@ -61,7 +61,7 @@ const HistogramModal = () => {
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default HistogramModal;
+export default HistogramModal

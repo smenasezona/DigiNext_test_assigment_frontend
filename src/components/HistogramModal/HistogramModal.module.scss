@@ -1,20 +1,7 @@
 @import "../../assets/mixins";
 
 .visualBtn {
-  width: 5rem;
-  height: 1.8rem;
-  background-color: #6e2e7c;
-  border: none;
-  border-radius: 0.3rem;
-  color: #f3f3f3;
-  font-size: 14px;
-  cursor: pointer;
-  transition-duration: 0.3s;
-  font-family: Inter, sans-serif;
-
-  &:hover {
-    background-color: #7c2e63;
-  }
+  @include form-button
 }
 
 .modalOverlay {
@@ -23,7 +10,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Затемнение фона */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,4 +27,16 @@
 
 .closeBtn {
   @include button-style
+}
+
+@media (max-width: 768px) {
+  .modalContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visualBtn {
+    width: 23%;
+  }
 }

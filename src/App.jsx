@@ -1,4 +1,3 @@
-import './App.css'
 import Entities from "./components/Entities/Entities.jsx";
 
 function App() {

@@ -5,30 +5,29 @@ import styles from './EditEntityModal.module.scss';
 import {setIsEditing} from "../../api/slices/editModalSlice.js";
 
 function EditEntityModal({ entity, onUpdateEntity, onClose }) {
-    const [name, setName] = useState(entity.name);
-    const [coordinate, setCoordinate] = useState(entity.coordinate);
-    const [labels, setLabels] = useState(entity.labels);
-    const dispatch = useDispatch();
-
+    const [name, setName] = useState(entity.name)
+    const [coordinate, setCoordinate] = useState(entity.coordinate)
+    const [labels, setLabels] = useState(entity.labels)
+    const dispatch = useDispatch()
     const handleSubmit = (e) => {
-        e.preventDefault();
-        onUpdateEntity({ ...entity, name, coordinate, labels });
+        e.preventDefault()
+        onUpdateEntity({ ...entity, name, coordinate, labels })
         onClose();
     };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
-                onClose();
+                onClose()
             }
         };
 
-        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keydown', handleKeyDown)
 
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keydown', handleKeyDown)
         };
-    }, [onClose]);
+    }, [onClose])
 
     return (
         <div className={styles.modalBackdrop}>
@@ -70,7 +69,7 @@ function EditEntityModal({ entity, onUpdateEntity, onClose }) {
                 </form>
             </div>
         </div>
-    );
+    )
 }
 
-export default EditEntityModal;
+export default EditEntityModal

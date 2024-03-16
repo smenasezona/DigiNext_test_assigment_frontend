@@ -14,3 +14,20 @@
     background-color: var(--primary-hover-color);
   }
 }
+
+@mixin form-button {
+  width: 5rem;
+  height: 1.8rem;
+  background-color: #6e2e7c;
+  border: none;
+  border-radius: 0.3rem;
+  color: #f3f3f3;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  font-family: Inter, sans-serif;
+
+  &:hover {
+    background-color: #7c2e63;
+  }
+}
